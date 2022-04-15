@@ -23,7 +23,7 @@ router.get("/getExpense", requireLogin, async (req, res) => {
   try {
     const data = await Expense.find().populate("updatedBy", "fullName email");
     console.log(data);
-    res.json({ data });
+    res.json({ data, status: "ok", message: "Success" });
   } catch (error) {}
 });
 
@@ -44,7 +44,7 @@ router.post("/addExpense", requireLogin, async (req, res) => {
     });
     const response = await data.save();
     console.log(response);
-    res.json({ response });
+    res.json({ status: "ok", message: "Success", response });
   } catch (error) {
     console.log(error);
   }

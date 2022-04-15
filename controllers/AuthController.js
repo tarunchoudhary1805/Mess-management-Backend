@@ -101,9 +101,19 @@ const updateUser = (req, res, next) => {
 
 const getUsers = async (req, res, next) => {
   try {
-    const users = await User.find();
+    const users = await User.find(
+      {},
+      {
+        _id: 1,
+        fullName: true,
+        email: true,
+        roomNumber: true,
+        accountStatus: true,
+      }
+    );
+
     console.log(users);
-    res.status(200).json({ success: true, users });
+    res.status(200).json({ status: "ok", message: "Success", users });
   } catch (error) {
     console.log(error.message);
   }
