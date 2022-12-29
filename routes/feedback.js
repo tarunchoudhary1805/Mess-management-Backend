@@ -32,4 +32,21 @@ router.post("/addFeedback", requireLogin, async (req, res) => {
   }
 });
 
+router.delete("/deleteFeedback/:id", requireLogin, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deleteFeedback = await Feedback.findByIdAndRemove(id);
+    const AllFeedbacks = await Feedback.find();
+    if (deleteFeedback)
+      return res.json({
+        message: "Deleted Successfully !",
+        data: AllFeedbacks,
+        status: "ok",
+      });
+  } catch (error) {
+    console.log(error);
+  }
+  // console.log(deleteFeedback);
+});
+
 module.exports = router;
